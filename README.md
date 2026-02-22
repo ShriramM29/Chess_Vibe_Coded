@@ -2,10 +2,6 @@
 
 **A fully functional, production-ready chess web application built with HTML, CSS, and JavaScript.**
 
-![WebChess Pro](https://img.shields.io/badge/WebChess-Pro-blueviolet?style=for-the-badge)
-![No Dependencies](https://img.shields.io/badge/Dependencies-None-green?style=for-the-badge)
-![Browser](https://img.shields.io/badge/Runs%20In-Browser-orange?style=for-the-badge)
-
 ---
 
 ## 📁 Project Structure
@@ -35,46 +31,6 @@ Chess/
 ├── SYSTEM_DESIGN.md
 └── IMPLEMENTATION_GUIDE.md
 ```
-
----
-
-## 🚀 Running the Application
-
-### Option 1 — Open Directly (Simplest)
-
-Just open `index.html` in any modern browser:
-
-```
-Double-click  →  index.html
-```
-
-Or drag the file into Chrome/Edge/Firefox/Safari.
-
-### Option 2 — Local Development Server (Recommended)
-
-Using Python (built-in):
-
-```bash
-# Python 3
-cd d:\Projects\Chess
-python -m http.server 8080
-# Open: http://localhost:8080
-```
-
-Using Node.js:
-
-```bash
-cd d:\Projects\Chess
-npx -y serve .
-# Open the URL shown in terminal
-```
-
-Using VS Code:
-
-- Install the **Live Server** extension
-- Right-click `index.html` → **Open with Live Server**
-
----
 
 ## ✨ Features Implemented
 
@@ -166,38 +122,6 @@ Themes: mate-in-1, forks, sacrifices, back-rank mates, and more.
 
 Import any PGN or FEN and step through positions with evaluation bar.
 Supports autoplay and jump-to-any-move navigation.
-
----
-
-## 🌐 Deployment
-
-### GitHub Pages
-
-1. Push the project to a GitHub repository
-2. Go to **Settings → Pages**
-3. Set source to the `main` branch (root `/`)
-4. Access at: `https://yourusername.github.io/Chess/`
-
-### Netlify
-
-```bash
-# Drag-and-drop the Chess/ folder to netlify.com/drop
-# OR use CLI:
-npm install -g netlify-cli
-netlify deploy --dir=. --prod
-```
-
-### Vercel
-
-```bash
-npm install -g vercel
-cd d:\Projects\Chess
-vercel --prod
-```
-
-### Any Static Host
-
-Upload all files maintaining the directory structure. No server-side code required.
 
 ---
 
