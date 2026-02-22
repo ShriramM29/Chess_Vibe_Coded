@@ -93,6 +93,20 @@
   background-color: rgba(220, 190, 60, 0.35) !important;
 }
 
+/* Monochrome board — pure B&W, no hues */
+.board-theme-monochrome .sq.light { background-color: #d8d8d8; }
+.board-theme-monochrome .sq.dark  { background-color: #3a3a3a; }
+.board-theme-monochrome .sq.light.selected { background-color: #b8b8b8 !important; outline: 2px solid #888; outline-offset: -2px; }
+.board-theme-monochrome .sq.dark.selected  { background-color: #555555 !important; outline: 2px solid #aaa; outline-offset: -2px; }
+.board-theme-monochrome .sq.light.highlight-last { background-color: #c0c0c0 !important; }
+.board-theme-monochrome .sq.dark.highlight-last  { background-color: #4e4e4e !important; }
+.board-theme-monochrome .sq.highlight-legal::after {
+  background: rgba(0,0,0,0.25) !important;
+}
+.board-theme-monochrome .sq.highlight-capture {
+  outline: 2px solid rgba(0,0,0,0.45) !important;
+}
+
 
 /* ===================================================
    PIECE THEMES
@@ -143,11 +157,39 @@
   text-shadow: 0 1px 3px rgba(255,255,255,0.2);
 }
 
+/* --- Monochrome Theme (pure B&W pieces) --- */
+.piece-theme-monochrome .piece[data-color="w"] {
+  color: #ffffff;
+  text-shadow:
+    0 0 0 #000,
+    1px  1px 0 #000,
+   -1px -1px 0 #000,
+    1px -1px 0 #000,
+   -1px  1px 0 #000,
+    2px  2px 0 #000,
+   -2px -2px 0 #000,
+    0 2px 4px rgba(0,0,0,0.9);
+}
+.piece-theme-monochrome .piece[data-color="b"] {
+  color: #111111;
+  text-shadow:
+    1px  1px 0 #fff,
+   -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+   -1px  1px 0 #fff,
+    0 2px 4px rgba(0,0,0,0.5);
+}
+
 /* ===================================================
    ACTIVE TURN GLOW
    =================================================== */
 .player-white.active-turn { border-color: #5c7cfa; box-shadow: 0 0 16px rgba(92,124,250,0.3); }
 .player-black.active-turn { border-color: #845ef7; box-shadow: 0 0 16px rgba(132,94,247,0.3); }
+
+/* Monochrome theme: gray glow */
+.theme-monochrome .player-white.active-turn { border-color: #c0c0c0; box-shadow: 0 0 16px rgba(200,200,200,0.3); }
+.theme-monochrome .player-black.active-turn { border-color: #888888; box-shadow: 0 0 16px rgba(140,140,140,0.3); }
+
 
 /* ===================================================
    ANALYSIS MODE OVERLAY

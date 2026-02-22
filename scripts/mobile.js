@@ -216,38 +216,133 @@ const MobilePlayerSync = {
 
 /* =================================================================
    TOUCH IMPROVEMENTS
-   Prevent double-tap zoom on game controls & board
+   - DO NOT call preventDefault on touchstart — it kills click synthesis.
+   - Scroll prevention is handled by CSS touch-action:none on board-wrapper.
+   - Add pointer-event drag support so pieces can be dragged on mobile.
    ================================================================= */
 (function initTouchImprovements() {
-  // Prevent double-tap zoom on interactive elements
-  const selectors = [
-    '.sq', '.piece', '.ctrl-btn', '.mob-ctrl-btn',
-    '.nav-btn', '.tab-btn', '.replay-btn', '.icon-btn',
-    '.promo-btn', '.time-preset-btn', '.modal-btn'
+  // Add touch-action: manipulation to prevent double-tap zoom on controls
+  // but NOT on .sq / .piece — those need pointer events to flow through.
+  const ctrlSelectors = [
+    '.ctrl-btn', '.mob-ctrl-btn', '.nav-btn', '.tab-btn',
+    '.replay-btn', '.icon-btn', '.promo-btn', '.time-preset-btn',
+    '.modal-btn', '.diff-btn', '.mob-nav-btn', '.mob-action-btn'
   ];
-  selectors.forEach(sel => {
+  ctrlSelectors.forEach(sel => {
     document.querySelectorAll(sel).forEach(el => {
       el.style.touchAction = 'manipulation';
     });
   });
 
-  // Prevent page scroll when interacting with the board
-  const board = document.getElementById('chessboard');
-  if (board) {
-    board.addEventListener('touchstart', e => {
-      e.preventDefault();
-    }, { passive: false });
-    board.addEventListener('touchmove', e => {
-      e.preventDefault();
-    }, { passive: false });
-  }
-
-  // Add touch-action manipulation to the chessboard wrapper
+  // Board wrapper: CSS already has touch-action:none via style attribute set below.
+  // This prevents page scroll during board interaction while still allowing
+  // the browser to synthesise click events from taps.
   const wrapper = document.getElementById('board-wrapper');
   if (wrapper) {
+    // touch-action:none stops scrolling but keeps pointer events alive ✓
     wrapper.style.touchAction = 'none';
   }
+
+  // ── Pointer-event drag-and-drop for mobile ──────────────────────────────
+  // The HTML5 dragstart/dragend API doesn't fire on touch screens.
+  // We implement a lightweight pointer-events fallback so pieces can be
+  // dragged on mobile just like on desktop.
+  const board = document.getElementById('chessboard');
+  if (!board) return;
+
+  let activePieceEl = null;  // the piece element being dragged
+  let ghost = null;          // floating ghost copy
+  let startSq = null;        // square index drag started from
+
+  function getSquareFromPoint(x, y) {
+    // Hide ghost so elementFromPoint can see the underlying sq
+    if (ghost) ghost.style.display = 'none';
+    const el = document.elementFromPoint(x, y);
+    if (ghost) ghost.style.display = '';
+    if (!el) return null;
+    const sqEl = el.closest('[data-sq]');
+    return sqEl ? parseInt(sqEl.dataset.sq) : null;
+  }
+
+  board.addEventListener('pointerdown', e => {
+    // Only single finger / left button
+    if (e.pointerType === 'mouse') return; // desktop handles its own drag
+    const pieceEl = e.target.closest('.piece');
+    if (!pieceEl) return;
+
+    e.preventDefault(); // prevent scroll for drag, but click already fired before this
+    board.setPointerCapture(e.pointerId);
+
+    activePieceEl = pieceEl;
+    startSq = parseInt(pieceEl.dataset.sq);
+
+    // Create ghost
+    ghost = pieceEl.cloneNode(true);
+    const rect = pieceEl.getBoundingClientRect();
+    const size = rect.width;
+    Object.assign(ghost.style, {
+      position: 'fixed',
+      left: (e.clientX - size / 2) + 'px',
+      top:  (e.clientY - size * 0.7) + 'px',
+      width:  size + 'px',
+      height: size + 'px',
+      fontSize: getComputedStyle(pieceEl).fontSize,
+      lineHeight: '1',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      pointerEvents: 'none',
+      zIndex: '9999',
+      opacity: '0.9',
+      transform: 'scale(1.25)',
+      transition: 'none',
+      userSelect: 'none'
+    });
+    document.body.appendChild(ghost);
+
+    // Dim original
+    pieceEl.style.opacity = '0.3';
+  }, { passive: false });
+
+  board.addEventListener('pointermove', e => {
+    if (!ghost || e.pointerType === 'mouse') return;
+    const size = parseFloat(ghost.style.width);
+    ghost.style.left = (e.clientX - size / 2) + 'px';
+    ghost.style.top  = (e.clientY - size * 0.7) + 'px';
+  }, { passive: true });
+
+  board.addEventListener('pointerup', e => {
+    if (!ghost || e.pointerType === 'mouse') return;
+
+    const toSq = getSquareFromPoint(e.clientX, e.clientY);
+
+    // Clean up
+    ghost.remove();
+    ghost = null;
+    if (activePieceEl) activePieceEl.style.opacity = '';
+    activePieceEl = null;
+
+    // Trigger drop if moved to a different square
+    if (toSq !== null && toSq !== startSq) {
+      // Find the BoardRenderer instance and invoke onDrop
+      if (window.App && App.board && App.board.onDrop) {
+        // Convert visual sq to logical sq (handles flipping)
+        const from = App.board.flipped ? 63 - startSq : startSq;
+        const to   = App.board.flipped ? 63 - toSq    : toSq;
+        App._onDrop(from, to);
+      }
+    }
+
+    startSq = null;
+  }, { passive: true });
+
+  board.addEventListener('pointercancel', () => {
+    if (ghost) { ghost.remove(); ghost = null; }
+    if (activePieceEl) { activePieceEl.style.opacity = ''; activePieceEl = null; }
+    startSq = null;
+  }, { passive: true });
 })();
+
 
 /* =================================================================
    SAFE AREA / VIEWPORT FIXES

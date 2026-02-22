@@ -77,6 +77,36 @@
   --accent-purple: #7048e8;
 }
 
+/* ---------- Monochrome Theme ---------- */
+.theme-monochrome {
+  --bg-primary:     #111111;
+  --bg-secondary:   #1a1a1a;
+  --bg-card:        #1f1f1f;
+  --bg-card-hover:  #272727;
+  --bg-elevated:    #2e2e2e;
+  --border:         #333333;
+  --border-light:   #484848;
+
+  --text-primary:   #f0f0f0;
+  --text-secondary: #aaaaaa;
+  --text-muted:     #666666;
+
+  /* Strip out all color — accents become pure white / gray */
+  --accent-blue:    #e0e0e0;
+  --accent-purple:  #cccccc;
+  --accent-green:   #d0d0d0;
+  --accent-red:     #b0b0b0;
+  --accent-yellow:  #e8e8e8;
+  --accent-orange:  #c8c8c8;
+
+  --btn-primary-bg:    linear-gradient(135deg, #3a3a3a, #505050);
+  --btn-primary-hover: linear-gradient(135deg, #484848, #606060);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.50);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.60);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.75);
+}
+
 /* ============================================================
    LIQUID GLASS THEME — Apple visionOS inspired
    ============================================================ */
