@@ -27,7 +27,9 @@
     overlay.classList.remove('open');
     overlay.setAttribute('aria-hidden', 'true');
     menuBtn.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
+    // On mobile, keep body overflow hidden (CSS controls this for the pinned layout).
+    // Only restore '' on desktop where the CSS doesn't lock overflow.
+    document.body.style.overflow = window.innerWidth <= 860 ? 'hidden' : '';
   }
 
   menuBtn.addEventListener('click', openMenu);
