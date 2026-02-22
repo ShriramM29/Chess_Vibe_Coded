@@ -74,15 +74,24 @@ class StorageManager {
   /* ---- Preferences ---- */
   static getPrefs() {
     try {
-      return JSON.parse(localStorage.getItem(StorageManager.KEYS.PREFS)) || StorageManager._defaultPrefs();
+      const saved = JSON.parse(localStorage.getItem(StorageManager.KEYS.PREFS));
+      if (!saved) return StorageManager._defaultPrefs();
+      // Migrate: if user never changed from the old dark default, switch to monochrome
+      if (saved.appTheme === 'theme-dark' &&
+          saved.boardTheme === 'board-theme-classic' &&
+          saved.pieceTheme === 'piece-theme-standard') {
+        const defaults = StorageManager._defaultPrefs();
+        return { ...saved, ...defaults };
+      }
+      return saved;
     } catch { return StorageManager._defaultPrefs(); }
   }
 
   static _defaultPrefs() {
     return {
-      appTheme:    'theme-dark',
-      boardTheme:  'board-theme-classic',
-      pieceTheme:  'piece-theme-standard',
+      appTheme:    'theme-monochrome',
+      boardTheme:  'board-theme-monochrome',
+      pieceTheme:  'piece-theme-monochrome',
       showCoords:  true,
       highlightMoves: true,
       highlightLast:  true,
