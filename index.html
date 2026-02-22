@@ -2,12 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>WebChess Pro – Full-Featured Chess Web Application</title>
     <meta
       name="description"
-      content="WebChess Pro is a fully functional browser-based chess platform. Play vs AI, analyze games, solve puzzles, use time controls, import/export PGN & FEN."
+      content="WebChess Pro is a fully functional browser-based chess platform. Play vs AI, analyze games, solve puzzles, use time controls, import/export PGN &amp; FEN."
     />
+    <!-- iOS Web App Meta -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="WebChess Pro" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#0f1117" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -54,12 +60,35 @@
           id="btn-sound"
           class="icon-btn active"
           title="Toggle Sound"
-          id="sound-toggle"
         >
           🔊
         </button>
+        <button id="btn-mobile-menu" class="icon-btn mobile-menu-btn" title="Menu" aria-label="Open navigation menu" aria-expanded="false">
+          ☰
+        </button>
       </div>
     </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay" aria-hidden="true">
+      <div class="mobile-nav-panel">
+        <div class="mobile-nav-header">
+          <span class="mobile-nav-title">♟ WebChess <span class="logo-pro">Pro</span></span>
+          <button class="mobile-nav-close" id="btn-mobile-nav-close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="mobile-nav-links">
+          <button id="mob-btn-mode-pvp" class="mob-nav-btn active" data-mode="pvp">⚔ Player vs Player</button>
+          <button id="mob-btn-mode-pvai" class="mob-nav-btn" data-mode="pvai">🤖 vs AI</button>
+          <button id="mob-btn-mode-puzzle" class="mob-nav-btn" data-mode="puzzle">🧩 Puzzles</button>
+          <button id="mob-btn-mode-analysis" class="mob-nav-btn" data-mode="analysis">🔍 Analysis</button>
+        </nav>
+        <div class="mobile-nav-actions">
+          <button id="mob-btn-new-game" class="mob-action-btn primary">♟ New Game</button>
+          <button id="mob-btn-stats" class="mob-action-btn">📊 Statistics</button>
+          <button id="mob-btn-settings" class="mob-action-btn">⚙ Settings</button>
+        </div>
+      </div>
+    </div>
 
     <!-- ===== MAIN LAYOUT ===== -->
     <main class="app-main" role="main">
@@ -118,6 +147,18 @@
 
       <!-- CENTER: BOARD -->
       <section class="board-section" aria-label="Chess board">
+        <!-- Mobile: Black Player Strip (shown only on mobile) -->
+        <div class="mobile-player-strip mobile-player-top" id="mobile-black-strip">
+          <div class="mob-player-avatar">♛</div>
+          <div class="mob-player-info">
+            <div class="mob-player-name" id="mob-player-black-name">Black</div>
+            <div class="mob-captured" id="mob-captured-black"></div>
+          </div>
+          <div class="mob-player-timer" id="mob-timer-black">
+            <span id="mob-timer-black-display">10:00</span>
+          </div>
+        </div>
+
         <!-- Status Bar -->
         <div
           class="status-bar"
@@ -151,6 +192,27 @@
             aria-label="Chess board"
             tabindex="0"
           ></div>
+        </div>
+
+        <!-- Mobile: White Player Strip (shown only on mobile) -->
+        <div class="mobile-player-strip mobile-player-bottom" id="mobile-white-strip">
+          <div class="mob-player-avatar">♔</div>
+          <div class="mob-player-info">
+            <div class="mob-player-name" id="mob-player-white-name">White</div>
+            <div class="mob-captured" id="mob-captured-white"></div>
+          </div>
+          <div class="mob-player-timer" id="mob-timer-white">
+            <span id="mob-timer-white-display">10:00</span>
+          </div>
+        </div>
+
+        <!-- Mobile Quick Controls -->
+        <div class="mobile-quick-controls" id="mobile-quick-controls">
+          <button id="mob-btn-new-game-quick" class="mob-ctrl-btn primary" title="New Game">♟ New</button>
+          <button id="mob-btn-undo" class="mob-ctrl-btn" title="Undo">⟵</button>
+          <button id="mob-btn-flip" class="mob-ctrl-btn" title="Flip Board">↕</button>
+          <button id="mob-btn-hint-quick" class="mob-ctrl-btn" title="Hint">💡</button>
+          <button id="mob-btn-resign" class="mob-ctrl-btn danger" title="Resign">🏳</button>
         </div>
 
         <!-- Replay Controls (Analysis Mode) -->
@@ -342,14 +404,36 @@
             </div>
           </div>
           <div class="form-group" id="ai-options" style="display: none">
-            <label class="form-label" for="ai-difficulty">AI Difficulty</label>
-            <select id="ai-difficulty" class="form-select">
-              <option value="1">Beginner (Depth 1)</option>
-              <option value="2" selected>Easy (Depth 2)</option>
-              <option value="3">Medium (Depth 3)</option>
-              <option value="4">Hard (Depth 4)</option>
-              <option value="5">Expert (Depth 5)</option>
-            </select>
+            <label class="form-label">AI Difficulty</label>
+            <!-- Hidden input stores the selected depth value, read by JS -->
+            <input type="hidden" id="ai-difficulty" value="2" />
+            <div class="ai-difficulty-grid">
+              <button type="button" class="diff-btn" data-depth="1">
+                <span class="diff-icon">🌱</span>
+                <span class="diff-name">Beginner</span>
+                <span class="diff-sub">Depth 1</span>
+              </button>
+              <button type="button" class="diff-btn active" data-depth="2">
+                <span class="diff-icon">⚡</span>
+                <span class="diff-name">Easy</span>
+                <span class="diff-sub">Depth 2</span>
+              </button>
+              <button type="button" class="diff-btn" data-depth="3">
+                <span class="diff-icon">🎯</span>
+                <span class="diff-name">Medium</span>
+                <span class="diff-sub">Depth 3</span>
+              </button>
+              <button type="button" class="diff-btn" data-depth="4">
+                <span class="diff-icon">🔥</span>
+                <span class="diff-name">Hard</span>
+                <span class="diff-sub">Depth 4</span>
+              </button>
+              <button type="button" class="diff-btn" data-depth="5">
+                <span class="diff-icon">💀</span>
+                <span class="diff-name">Expert</span>
+                <span class="diff-sub">Depth 5</span>
+              </button>
+            </div>
             <label class="form-label" style="margin-top: 12px">Play as</label>
             <div class="radio-group">
               <label class="radio-option">
@@ -732,5 +816,6 @@
     <script src="scripts/board.js"></script>
     <script src="scripts/ui.js"></script>
     <script src="scripts/main.js"></script>
+    <script src="scripts/mobile.js"></script>
   </body>
 </html>

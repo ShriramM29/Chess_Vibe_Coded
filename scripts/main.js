@@ -196,6 +196,16 @@ function _bindUI() {
     })
   );
 
+  // AI difficulty preset buttons
+  document.querySelectorAll('.diff-btn').forEach(btn =>
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const depthInput = document.getElementById('ai-difficulty');
+      if (depthInput) depthInput.value = btn.dataset.depth;
+    })
+  );
+
   // Promotion
   document.querySelectorAll('.promo-btn').forEach(btn =>
     btn.addEventListener('click', () => App.ui.resolvePromotion(btn.dataset.piece))
