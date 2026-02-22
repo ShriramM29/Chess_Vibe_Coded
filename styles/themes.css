@@ -11,48 +11,9 @@
 .board-theme-classic .sq.dark  { background-color: #b58863; }
 .board-theme-classic .sq.light.selected { background-color: #f6f669 !important; }
 .board-theme-classic .sq.dark.selected  { background-color: #baca2b !important; }
-.board-theme-classic .sq.light.highlight-last { background-color: #cdd26a !important; }
-.board-theme-classic .sq.dark.highlight-last  { background-color: #aaa23a !important; }
-
-/* Ocean (Blue tones) */
-.board-theme-ocean .sq.light { background-color: #dee3e6; }
-.board-theme-ocean .sq.dark  { background-color: #4682b4; }
-.board-theme-ocean .sq.light.selected { background-color: #a8d8ea !important; }
-.board-theme-ocean .sq.dark.selected  { background-color: #80bcd8 !important; }
-.board-theme-ocean .sq.light.highlight-last { background-color: #b8e0f0 !important; }
-.board-theme-ocean .sq.dark.highlight-last  { background-color: #5a9cc4 !important; }
-
-/* Forest (Green tones) */
-.board-theme-forest .sq.light { background-color: #eeeed2; }
-.board-theme-forest .sq.dark  { background-color: #769656; }
-.board-theme-forest .sq.light.selected { background-color: #f6f669 !important; }
-.board-theme-forest .sq.dark.selected  { background-color: #baca2b !important; }
-.board-theme-forest .sq.light.highlight-last { background-color: #cdd26a !important; }
-.board-theme-forest .sq.dark.highlight-last  { background-color: #aaa23a !important; }
-
-/* Coral */
-.board-theme-coral .sq.light { background-color: #fad6c5; }
-.board-theme-coral .sq.dark  { background-color: #c87961; }
-.board-theme-coral .sq.light.selected { background-color: #f8c8a0 !important; }
-.board-theme-coral .sq.dark.selected  { background-color: #e0976b !important; }
-.board-theme-coral .sq.light.highlight-last { background-color: #f0c090 !important; }
-.board-theme-coral .sq.dark.highlight-last  { background-color: #d08060 !important; }
-
-/* Purple */
-.board-theme-purple .sq.light { background-color: #ede0f2; }
-.board-theme-purple .sq.dark  { background-color: #9062a0; }
-.board-theme-purple .sq.light.selected { background-color: #d0b0e8 !important; }
-.board-theme-purple .sq.dark.selected  { background-color: #b078c8 !important; }
-.board-theme-purple .sq.light.highlight-last { background-color: #c8a8e8 !important; }
-.board-theme-purple .sq.dark.highlight-last  { background-color: #9860b0 !important; }
-
-/* Ice */
-.board-theme-ice .sq.light { background-color: #e8f4fd; }
-.board-theme-ice .sq.dark  { background-color: #8ab4cf; }
-.board-theme-ice .sq.light.selected { background-color: #b0d8f0 !important; }
-.board-theme-ice .sq.dark.selected  { background-color: #70a8c8 !important; }
-.board-theme-ice .sq.light.highlight-last { background-color: #c0e0f8 !important; }
-.board-theme-ice .sq.dark.highlight-last  { background-color: #7ab0d0 !important; }
+/* Classic last-move: bold yellow-green highlight */
+.board-theme-classic .sq.light.highlight-last { background-color: #e8e84a !important; }
+.board-theme-classic .sq.dark.highlight-last  { background-color: #c0b030 !important; }
 
 /* Liquid Glass board — purely translucent, shows the live gradient through */
 .board-theme-liquid-glass .sq.light {
@@ -79,32 +40,72 @@
   z-index: 1;
 }
 .board-theme-liquid-glass .sq.light.selected {
-  background-color: rgba(160, 200, 255, 0.42) !important;
-  box-shadow: inset 0 0 12px rgba(160,196,255,0.30);
+  background-color: rgba(160, 200, 255, 0.55) !important;
+  box-shadow: inset 0 0 12px rgba(160,196,255,0.40);
 }
 .board-theme-liquid-glass .sq.dark.selected {
-  background-color: rgba(120, 160, 255, 0.42) !important;
-  box-shadow: inset 0 0 12px rgba(120,160,255,0.30);
+  background-color: rgba(120, 160, 255, 0.55) !important;
+  box-shadow: inset 0 0 12px rgba(120,160,255,0.40);
 }
 .board-theme-liquid-glass .sq.light.highlight-last {
-  background-color: rgba(255, 230, 100, 0.30) !important;
+  background-color: rgba(255, 215, 50, 0.50) !important;
+  box-shadow: inset 0 0 10px rgba(255,215,50,0.30);
 }
 .board-theme-liquid-glass .sq.dark.highlight-last  {
-  background-color: rgba(220, 190, 60, 0.35) !important;
+  background-color: rgba(220, 180, 30, 0.55) !important;
+  box-shadow: inset 0 0 10px rgba(220,180,30,0.30);
+}
+/* Liquid Glass legal moves: bright glow dots */
+.board-theme-liquid-glass .sq.highlight-legal::after {
+  background: radial-gradient(circle, rgba(200,220,255,0.75) 28%, transparent 58%) !important;
+}
+.board-theme-liquid-glass .sq.highlight-capture::after {
+  background: radial-gradient(circle, rgba(255,160,180,0.75) 28%, transparent 58%) !important;
 }
 
 /* Monochrome board — pure B&W, no hues */
 .board-theme-monochrome .sq.light { background-color: #d8d8d8; }
 .board-theme-monochrome .sq.dark  { background-color: #3a3a3a; }
-.board-theme-monochrome .sq.light.selected { background-color: #b8b8b8 !important; outline: 2px solid #888; outline-offset: -2px; }
-.board-theme-monochrome .sq.dark.selected  { background-color: #555555 !important; outline: 2px solid #aaa; outline-offset: -2px; }
-.board-theme-monochrome .sq.light.highlight-last { background-color: #c0c0c0 !important; }
-.board-theme-monochrome .sq.dark.highlight-last  { background-color: #4e4e4e !important; }
-.board-theme-monochrome .sq.highlight-legal::after {
-  background: rgba(0,0,0,0.25) !important;
+.board-theme-monochrome .sq.light.selected {
+  background-color: #a0a0a0 !important;
+  outline: 3px solid #555;
+  outline-offset: -3px;
 }
-.board-theme-monochrome .sq.highlight-capture {
-  outline: 2px solid rgba(0,0,0,0.45) !important;
+.board-theme-monochrome .sq.dark.selected {
+  background-color: #686868 !important;
+  outline: 3px solid #bbb;
+  outline-offset: -3px;
+}
+/* Monochrome last-move: very visible golden-yellow tint */
+.board-theme-monochrome .sq.light.highlight-last {
+  background-color: #d4c860 !important;
+  outline: 2px solid #b0a820;
+  outline-offset: -2px;
+}
+.board-theme-monochrome .sq.dark.highlight-last  {
+  background-color: #8a8020 !important;
+  outline: 2px solid #c0b030;
+  outline-offset: -2px;
+}
+/* Monochrome legal moves: high-contrast dot — dark on light, light on dark */
+.board-theme-monochrome .sq.light.highlight-legal::after {
+  background: radial-gradient(circle, rgba(0,0,0,0.60) 28%, transparent 56%) !important;
+}
+.board-theme-monochrome .sq.dark.highlight-legal::after {
+  background: radial-gradient(circle, rgba(255,255,255,0.70) 28%, transparent 56%) !important;
+}
+/* Monochrome capture: bold ring — dark on light, light on dark */
+.board-theme-monochrome .sq.light.highlight-capture {
+  outline: 4px solid rgba(0,0,0,0.65) !important;
+  outline-offset: -4px;
+}
+.board-theme-monochrome .sq.dark.highlight-capture {
+  outline: 4px solid rgba(255,255,255,0.75) !important;
+  outline-offset: -4px;
+}
+/* Clear the base ::after radial gradient on monochrome captures */
+.board-theme-monochrome .sq.highlight-capture::after {
+  background: none !important;
 }
 
 

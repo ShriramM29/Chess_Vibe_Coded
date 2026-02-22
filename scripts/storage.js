@@ -76,13 +76,12 @@ class StorageManager {
     try {
       const saved = JSON.parse(localStorage.getItem(StorageManager.KEYS.PREFS));
       if (!saved) return StorageManager._defaultPrefs();
-      // Migrate: if user never changed from the old dark default, switch to monochrome
-      if (saved.appTheme === 'theme-dark' &&
-          saved.boardTheme === 'board-theme-classic' &&
-          saved.pieceTheme === 'piece-theme-standard') {
-        const defaults = StorageManager._defaultPrefs();
-        return { ...saved, ...defaults };
-      }
+      // Validate that saved themes are still available (removed old themes → fall back to defaults)
+      const validAppThemes   = ['theme-dark', 'theme-monochrome', 'theme-liquid-glass'];
+      const validBoardThemes = ['board-theme-classic', 'board-theme-monochrome', 'board-theme-liquid-glass'];
+      const defaults = StorageManager._defaultPrefs();
+      if (!validAppThemes.includes(saved.appTheme))   saved.appTheme   = defaults.appTheme;
+      if (!validBoardThemes.includes(saved.boardTheme)) saved.boardTheme = defaults.boardTheme;
       return saved;
     } catch { return StorageManager._defaultPrefs(); }
   }

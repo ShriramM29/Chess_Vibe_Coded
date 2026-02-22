@@ -77,6 +77,65 @@
   --accent-purple: #7048e8;
 }
 
+/* =======================================================
+   MONOCHROME THEME: Explicit overrides for UI clarity
+   ======================================================= */
+/* Nav buttons — ensure text is always legible */
+.theme-monochrome .nav-btn {
+  color: #c0c0c0;
+  border-color: transparent;
+}
+.theme-monochrome .nav-btn:hover {
+  background: #2e2e2e;
+  color: #f0f0f0;
+  border-color: #555;
+}
+.theme-monochrome .nav-btn.active {
+  background: #2e2e2e;
+  color: #ffffff;
+  border-color: #888;
+  font-weight: 700;
+}
+/* Header icon buttons */
+.theme-monochrome .icon-btn {
+  color: #b0b0b0;
+}
+.theme-monochrome .icon-btn:hover {
+  color: #f0f0f0;
+  background: #2e2e2e;
+  border-color: #666;
+}
+.theme-monochrome .icon-btn.active {
+  color: #ffffff;
+}
+/* Tab buttons */
+.theme-monochrome .tab-btn {
+  color: #aaaaaa;
+}
+.theme-monochrome .tab-btn.active {
+  background: #333333;
+  color: #ffffff;
+  font-weight: 700;
+}
+/* Active move in move list */
+.theme-monochrome .move-san.active-move {
+  background: #555555;
+  color: #ffffff;
+}
+/* Theme option buttons text in monochrome */
+.theme-monochrome .theme-opt {
+  color: #c0c0c0;
+}
+.theme-monochrome .theme-opt.active {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+/* Last-move label area on status bar */
+.theme-monochrome #status-text {
+  color: #f0f0f0;
+  font-weight: 600;
+}
+
 /* ---------- Monochrome Theme ---------- */
 .theme-monochrome {
   --bg-primary:     #111111;
@@ -573,31 +632,32 @@ button:focus-visible {
 .sq.highlight-legal::after {
   background: radial-gradient(
     circle,
-    rgba(92, 124, 250, 0.5) 30%,
-    transparent 60%
+    rgba(92, 124, 250, 0.70) 28%,
+    transparent 56%
   );
 }
 .sq.highlight-capture::after {
   background: radial-gradient(
     circle,
-    rgba(255, 107, 107, 0.5) 30%,
-    transparent 60%
+    rgba(255, 80, 80, 0.70) 28%,
+    transparent 56%
   );
 }
+/* Last move highlight — vibrant yellow so it's always visible */
 .sq.highlight-last {
-  background-color: rgba(255, 212, 59, 0.35) !important;
+  background-color: rgba(255, 210, 40, 0.55) !important;
 }
 .sq.highlight-check {
-  background-color: rgba(255, 80, 80, 0.55) !important;
+  background-color: rgba(255, 60, 60, 0.65) !important;
 }
 .sq.selected {
-  background-color: rgba(92, 124, 250, 0.4) !important;
+  background-color: rgba(92, 124, 250, 0.45) !important;
 }
 .sq.dragging-over {
-  background-color: rgba(92, 124, 250, 0.3) !important;
+  background-color: rgba(92, 124, 250, 0.35) !important;
 }
 .sq.hint-sq {
-  background-color: rgba(81, 207, 102, 0.5) !important;
+  background-color: rgba(81, 207, 102, 0.55) !important;
 }
 
 /* ---------- Pieces ---------- */
