@@ -1,0 +1,172 @@
+/* =====================================================
+   WebChess Pro — Board & Piece Themes
+   ===================================================== */
+
+/* ===================================================
+   BOARD THEMES
+   =================================================== */
+
+/* Classic (Brown/Cream) */
+.board-theme-classic .sq.light { background-color: #f0d9b5; }
+.board-theme-classic .sq.dark  { background-color: #b58863; }
+.board-theme-classic .sq.light.selected { background-color: #f6f669 !important; }
+.board-theme-classic .sq.dark.selected  { background-color: #baca2b !important; }
+.board-theme-classic .sq.light.highlight-last { background-color: #cdd26a !important; }
+.board-theme-classic .sq.dark.highlight-last  { background-color: #aaa23a !important; }
+
+/* Ocean (Blue tones) */
+.board-theme-ocean .sq.light { background-color: #dee3e6; }
+.board-theme-ocean .sq.dark  { background-color: #4682b4; }
+.board-theme-ocean .sq.light.selected { background-color: #a8d8ea !important; }
+.board-theme-ocean .sq.dark.selected  { background-color: #80bcd8 !important; }
+.board-theme-ocean .sq.light.highlight-last { background-color: #b8e0f0 !important; }
+.board-theme-ocean .sq.dark.highlight-last  { background-color: #5a9cc4 !important; }
+
+/* Forest (Green tones) */
+.board-theme-forest .sq.light { background-color: #eeeed2; }
+.board-theme-forest .sq.dark  { background-color: #769656; }
+.board-theme-forest .sq.light.selected { background-color: #f6f669 !important; }
+.board-theme-forest .sq.dark.selected  { background-color: #baca2b !important; }
+.board-theme-forest .sq.light.highlight-last { background-color: #cdd26a !important; }
+.board-theme-forest .sq.dark.highlight-last  { background-color: #aaa23a !important; }
+
+/* Coral */
+.board-theme-coral .sq.light { background-color: #fad6c5; }
+.board-theme-coral .sq.dark  { background-color: #c87961; }
+.board-theme-coral .sq.light.selected { background-color: #f8c8a0 !important; }
+.board-theme-coral .sq.dark.selected  { background-color: #e0976b !important; }
+.board-theme-coral .sq.light.highlight-last { background-color: #f0c090 !important; }
+.board-theme-coral .sq.dark.highlight-last  { background-color: #d08060 !important; }
+
+/* Purple */
+.board-theme-purple .sq.light { background-color: #ede0f2; }
+.board-theme-purple .sq.dark  { background-color: #9062a0; }
+.board-theme-purple .sq.light.selected { background-color: #d0b0e8 !important; }
+.board-theme-purple .sq.dark.selected  { background-color: #b078c8 !important; }
+.board-theme-purple .sq.light.highlight-last { background-color: #c8a8e8 !important; }
+.board-theme-purple .sq.dark.highlight-last  { background-color: #9860b0 !important; }
+
+/* Ice */
+.board-theme-ice .sq.light { background-color: #e8f4fd; }
+.board-theme-ice .sq.dark  { background-color: #8ab4cf; }
+.board-theme-ice .sq.light.selected { background-color: #b0d8f0 !important; }
+.board-theme-ice .sq.dark.selected  { background-color: #70a8c8 !important; }
+.board-theme-ice .sq.light.highlight-last { background-color: #c0e0f8 !important; }
+.board-theme-ice .sq.dark.highlight-last  { background-color: #7ab0d0 !important; }
+
+/* Liquid Glass board — purely translucent, shows the live gradient through */
+.board-theme-liquid-glass .sq.light {
+  background-color: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  position: relative;
+}
+.board-theme-liquid-glass .sq.dark {
+  background-color: rgba(100, 80, 200, 0.22);
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  position: relative;
+}
+/* Subtle top-edge gloss on each square */
+.board-theme-liquid-glass .sq.light::before,
+.board-theme-liquid-glass .sq.dark::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+  z-index: 1;
+}
+.board-theme-liquid-glass .sq.light.selected {
+  background-color: rgba(160, 200, 255, 0.42) !important;
+  box-shadow: inset 0 0 12px rgba(160,196,255,0.30);
+}
+.board-theme-liquid-glass .sq.dark.selected {
+  background-color: rgba(120, 160, 255, 0.42) !important;
+  box-shadow: inset 0 0 12px rgba(120,160,255,0.30);
+}
+.board-theme-liquid-glass .sq.light.highlight-last {
+  background-color: rgba(255, 230, 100, 0.30) !important;
+}
+.board-theme-liquid-glass .sq.dark.highlight-last  {
+  background-color: rgba(220, 190, 60, 0.35) !important;
+}
+
+
+/* ===================================================
+   PIECE THEMES
+   =================================================== */
+
+/*
+  Standard: Uses CSS-rendered Unicode chess symbols with
+  white pieces having a white fill + dark outline,
+  black pieces having dark fill. Works in all browsers.
+*/
+
+/* --- Standard Theme (default) --- */
+.piece-theme-standard .piece[data-color="w"] {
+  color: #fff;
+  text-shadow:
+    0 0 3px #000,
+    0 1px 2px rgba(0,0,0,0.8),
+    1px 1px 0 #333,
+   -1px -1px 0 #333,
+    1px -1px 0 #333,
+   -1px  1px 0 #333;
+}
+
+.piece-theme-standard .piece[data-color="b"] {
+  color: #1a1a1a;
+  text-shadow:
+    0 1px 3px rgba(0,0,0,0.6),
+    0 0 2px rgba(255,255,255,0.3);
+}
+
+/* --- Unicode Theme (plain colored symbols) --- */
+.piece-theme-unicode .piece[data-color="w"] {
+  color: #ffd700;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+}
+.piece-theme-unicode .piece[data-color="b"] {
+  color: #8b00ff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+/* --- Simple Theme (flat colored) --- */
+.piece-theme-simple .piece[data-color="w"] {
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+}
+.piece-theme-simple .piece[data-color="b"] {
+  color: #2c2c2c;
+  text-shadow: 0 1px 3px rgba(255,255,255,0.2);
+}
+
+/* ===================================================
+   ACTIVE TURN GLOW
+   =================================================== */
+.player-white.active-turn { border-color: #5c7cfa; box-shadow: 0 0 16px rgba(92,124,250,0.3); }
+.player-black.active-turn { border-color: #845ef7; box-shadow: 0 0 16px rgba(132,94,247,0.3); }
+
+/* ===================================================
+   ANALYSIS MODE OVERLAY
+   =================================================== */
+.analysis-mode .chessboard { box-shadow: 0 0 0 3px var(--accent-yellow), 0 8px 40px rgba(0,0,0,0.6); }
+.analysis-mode .status-bar { border-color: var(--accent-yellow); }
+
+/* ===================================================
+   PUZZLE MODE OVERLAY
+   =================================================== */
+.puzzle-mode .chessboard { box-shadow: 0 0 0 3px var(--accent-green), 0 8px 40px rgba(0,0,0,0.6); }
+.puzzle-mode .status-bar { border-color: var(--accent-green); }
+
+/* ===================================================
+   CHECK WARNING FLASH
+   =================================================== */
+@keyframes check-flash {
+  0%   { box-shadow: 0 0 0 3px var(--accent-red); }
+  50%  { box-shadow: 0 0 20px 6px var(--accent-red); }
+  100% { box-shadow: 0 0 0 3px var(--accent-red); }
+}
+.in-check .chessboard { animation: check-flash 0.6s ease-in-out 2; }
